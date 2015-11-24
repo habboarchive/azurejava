@@ -12,7 +12,7 @@ and missing alot of core code and functionality so we thought it would just be e
 
 ### Azure Java is created by Azure Team:
 >Dominic (Dominicus)     
->Adil (Caustik)
+>Adil (Caustik)     
 >Jaden (Moonshine)     
 >Kyle (KyleeIsProzZ)     
 >Antoine (TyrexFr)     
