@@ -16,7 +16,7 @@ and missing alot of core code and functionality so we thought it would just be e
 >Jaden (Moonshine)     
 >Kyle (KyleeIsProzZ)     
 >Antoine (TyrexFr)     
->Gerard 
+>Gerard     
 >Tim (TimNL)    
 >Enrico (Diesel)    
 >Cankiee     
