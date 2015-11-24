@@ -4,10 +4,10 @@ Azure JAVA is a fresh from scratch Emulation software which emulates Habbo. The 
 and missing alot of core code and functionality so we thought it would just be easy to create a new project in JAVA.
 
 Java Features
->Netty - Networking
->Gradle - Building
->HikariCP - Connection Pooling
->Guice
+>Netty - Networking     
+>Gradle - Building     
+>HikariCP - Connection Pooling     
+>Guice     
 >Hibernate, log4j - Logging
 
 Azure Java is created by Azure Team:
