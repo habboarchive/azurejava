@@ -1,7 +1,7 @@
 package org.azure.communication.messages;
 
 import io.netty.buffer.ByteBuf;
-import org.azure.utilities.HabboEncoding;
+import org.azure.encoding.HabboEncoding;
 
 import java.nio.charset.Charset;
 
