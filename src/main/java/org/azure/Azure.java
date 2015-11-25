@@ -36,6 +36,7 @@ public class Azure {
     @Inject
     private Server server;
 
+
     @Inject
     protected Azure(Injector injector) {
         this.injector = injector;
