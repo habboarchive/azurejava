@@ -4,22 +4,36 @@ and missing alot of core code and functionality so we thought it would just be e
 
 ### Java Features
 >Netty - Networking
+
 >Gradle - Building
+
 >HikariCP - DB Connection Pooling
+
 >Guice - Dependency Injection
+
 >Hibernate - ORM / DB Management
+
 >log4j - Logging
 
 ### Azure Java is created by Azure Team:
 >Dominic (Dominicus)
+
 >Adil (Caustik)
+
 >Jaden (Moonshine)
+
 >Kyle (KyleeIsProzZ)
+
 >Antoine (TyrexFr)
+
 >Gerard
+
 >Tim (TimNL)
+
 >Enrico (Diesel)
+
 >Cankiee
+
 >Scott (scottstamp851)
 
 ### Version
