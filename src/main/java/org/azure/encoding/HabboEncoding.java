@@ -1,4 +1,4 @@
-package org.azure.utilities;
+package org.azure.encoding;
 
 public class HabboEncoding {
     public static int decodeInt(byte[] v) {
