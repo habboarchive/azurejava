@@ -23,6 +23,10 @@ import org.azure.communication.messages.MessageHandler;
 import org.azure.network.Server;
 import org.azure.network.sessions.SessionManager;
 import org.azure.utils.AzureArgs;
+import org.hibernate.HibernateException;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.service.ServiceRegistry;
 
 import javax.sql.DataSource;
 
@@ -80,6 +84,19 @@ public class Azure {
         hikariConfig.setPassword(arguments.getDatabasePassword());
 
         return new HikariDataSource(hikariConfig);
+    }
+
+    private static SessionFactory buildSessionFactory() {
+        try {
+            org.hibernate.cfg.Configuration configuration = new org.hibernate.cfg.Configuration();
+            configuration.configure();
+            ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
+            SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+            return sessionFactory;
+        }
+        catch (HibernateException ex) {
+            throw new ExceptionInInitializerError(ex);
+        }
     }
 
     private static Injector initializeInjector() {
