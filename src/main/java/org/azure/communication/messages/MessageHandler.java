@@ -76,6 +76,7 @@ public class MessageHandler {
     }
 
     public static void invoke(Session session, ClientMessage message) {
+        if (session == null || message == null) return;
         if (!messages.containsKey(message.opCode)) {
             logger.info("Unknown message (id: " + message.opCode + " session: " + session.getId() + ") " + message.toString());
             return;

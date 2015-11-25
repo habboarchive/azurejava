@@ -15,8 +15,8 @@ public class MessageDataWrapper {
 
     public MessageDataWrapper(ByteBuf buffer) {
         this.buffer = buffer;
-        this.header = this.readShort();
         this.length = this.readInteger();
+        this.header = this.readShort();
         this.offset = 6;
     }
 

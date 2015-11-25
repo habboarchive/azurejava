@@ -22,13 +22,15 @@ public class Decoder extends MessageToMessageDecoder<ByteBuf> {
     protected void decode(ChannelHandlerContext ctx, ByteBuf data, List<Object> out) throws Exception {
         out.add(data);
 
-        if (data.readableBytes() < 5) {
+        ByteBuf safeData = data.copy();
+
+        if (safeData.readableBytes() < 5) {
             return;
         }
 
-        int index = data.readerIndex();
+        int index = safeData.readerIndex();
 
-        if (data.readByte() == 0x3C) {
+        if (safeData.readByte() == 0x3C) {
             ctx.channel().writeAndFlush(Unpooled.copiedBuffer("<?xml version=\"1.0\"?>\r\n" +
                     "<!DOCTYPE cross-domain-policy SYSTEM \"/xml/dtds/cross-domain-policy.dtd\">\r\n" +
                     "<cross-domain-policy>\r\n" +
@@ -38,14 +40,9 @@ public class Decoder extends MessageToMessageDecoder<ByteBuf> {
 
             logger.info("Sent Habbo Policy to: " + ctx.channel().remoteAddress());
         } else {
-            data.readerIndex(index);
-
-            int length = data.readInt() - 2;
-
-            if (data.readableBytes() < length) {
-                data.readerIndex(index);
-                return;
-            }
+            Session session = Azure.getSessionManager().getSessionByChannel(ctx.channel());
+            MessageDataWrapper message = new MessageDataWrapper(data);
+            Azure.getMessageClassManager().execute(session, message);
         }
     }
 }

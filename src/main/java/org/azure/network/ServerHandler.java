@@ -3,6 +3,7 @@ package org.azure.network;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import org.apache.logging.log4j.LogManager;
 import org.azure.Azure;
 import org.azure.communication.messages.MessageDataWrapper;
 import org.azure.network.sessions.Session;
@@ -21,10 +22,14 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object obj) throws Exception {
-        Session session = Azure.getSessionManager().getSessionByChannel(ctx.channel());
-        ByteBuf data = (ByteBuf)obj;
-        MessageDataWrapper message = new MessageDataWrapper(data);
-        Azure.getMessageClassManager().execute(session, message);
+        /*Session session = Azure.getSessionManager().getSessionByChannel(ctx.channel());
+        try {
+            ByteBuf data = ((ByteBuf) obj).copy();
+            MessageDataWrapper message = new MessageDataWrapper(data);
+            Azure.getMessageClassManager().execute(session, message);
+        } catch (Exception ex) {
+            LogManager.getLogger(ServerHandler.class).error("ERROR", ex);
+        }*/
     }
 
     @Override
