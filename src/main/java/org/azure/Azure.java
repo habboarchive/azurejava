@@ -18,7 +18,8 @@ import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.configuration.SystemConfiguration;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.azure.communication.messages.MessageClassManager;
+//import org.azure.communication.messages.MessageClassManager;
+import org.azure.communication.messages.MessageHandler;
 import org.azure.network.Server;
 import org.azure.network.sessions.SessionManager;
 import org.azure.utils.AzureArgs;
@@ -29,7 +30,6 @@ import javax.sql.DataSource;
 public class Azure {
     private static Logger logger = LogManager.getLogger(Azure.class);
     private static Azure instance;
-    private static MessageClassManager messageClassManager;
     private static SessionManager sessionManager;
     private Injector injector;
     private HikariDataSource dataSource;
@@ -46,9 +46,6 @@ public class Azure {
     }
 
     public static void main(String[] args) throws ConfigurationException {
-        messageClassManager = new MessageClassManager();
-        messageClassManager.registerHandshakeMessages();
-
         sessionManager = new SessionManager();
 
         final AzureArgs arguments = CliFactory.parseArguments(AzureArgs.class, args);
@@ -128,10 +125,6 @@ public class Azure {
 
     private void initializeGameServer() {
         server.startServer();
-    }
-
-    public static MessageClassManager getMessageClassManager() {
-        return messageClassManager;
     }
 
     public static SessionManager getSessionManager() {

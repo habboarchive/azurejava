@@ -11,6 +11,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.azure.Azure;
 import org.azure.communication.messages.MessageDataWrapper;
+import org.azure.communication.messages.MessageHandler;
+import org.azure.communication.protocol.ClientMessage;
 import org.azure.network.sessions.Session;
 
 import java.util.List;
@@ -42,7 +44,9 @@ public class Decoder extends MessageToMessageDecoder<ByteBuf> {
         } else {
             Session session = Azure.getSessionManager().getSessionByChannel(ctx.channel());
             MessageDataWrapper message = new MessageDataWrapper(data);
-            Azure.getMessageClassManager().execute(session, message);
+
+            ClientMessage msg = new ClientMessage(message.getHeader(), message.getData());
+            MessageHandler.invoke(session, msg);
         }
     }
 }
