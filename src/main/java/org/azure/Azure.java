@@ -18,9 +18,7 @@ import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.configuration.SystemConfiguration;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-//import org.azure.communication.messages.MessageClassManager;
-import org.azure.communication.messages.MessageHandler;
-import org.azure.network.Server;
+import org.azure.network.NetworkBootstrap;
 import org.azure.network.sessions.SessionManager;
 import org.azure.utils.AzureArgs;
 import org.hibernate.HibernateException;
@@ -38,7 +36,7 @@ public class Azure {
     private Injector injector;
     private HikariDataSource dataSource;
     @Inject
-    private Server server;
+    private NetworkBootstrap network;
 
 
     @Inject
@@ -63,7 +61,7 @@ public class Azure {
 
         instance = injector.getInstance(Azure.class);
         instance.setDataSource(hikariDataSource);
-        Server.setInjector(injector);
+        NetworkBootstrap.setInjector(injector);
         logger.info(instance.getDataSource().toString());
         instance.initializeGameServer();
     }
@@ -142,7 +140,7 @@ public class Azure {
     }
 
     private void initializeGameServer() {
-        server.startServer();
+        network.startServer();
     }
 
     public static SessionManager getSessionManager() {

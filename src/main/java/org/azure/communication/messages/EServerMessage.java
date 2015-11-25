@@ -5,7 +5,7 @@ package org.azure.communication.messages;
  * Edited: 11/25/2015 (Scott Stamp).
  */
 public class EServerMessage {
-    public static final short InitCryptoMessageComposer = 2172;
+    public static final short InitDiffieHandshakeComposer = 2172;
     public static final short SecretKeyMessageComposer = 690;
     public static final short AuthenticationOKMessageComposer = 3151;
     public static final short UniqueMachineIDMessageComposer = 3540;

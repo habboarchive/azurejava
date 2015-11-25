@@ -12,16 +12,16 @@ import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.azure.network.codec.Decoder;
-import org.azure.network.codec.Encoder;
+import org.azure.network.codec.GameDecoder;
+import org.azure.network.codec.GameEncoder;
 
 import java.net.InetSocketAddress;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 
 @AutoBindSingleton
-public class Server {
-    private static final Logger logger = LogManager.getLogger(Server.class);
+public class NetworkBootstrap {
+    private static final Logger logger = LogManager.getLogger(NetworkBootstrap.class);
     private static Injector injector;
     @Configuration(value = "org.azure.network.Server.port")
     private int port;
@@ -33,7 +33,7 @@ public class Server {
     }
 
     public static void setInjector(Injector injector) {
-        Server.injector = injector;
+        NetworkBootstrap.injector = injector;
     }
 
     private static final ThreadFactory factory = new ThreadFactory() {
@@ -54,7 +54,7 @@ public class Server {
             ServerBootstrap b = new ServerBootstrap();
             b.group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class)
-                    .option(ChannelOption.SO_BACKLOG, 10)
+                    .option(ChannelOption.SO_BACKLOG, 1000)
                             //.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 10000)
                     .childOption((ChannelOption.SO_KEEPALIVE), true)
                     .childHandler(new ChannelInitializer<SocketChannel>() {
@@ -62,9 +62,9 @@ public class Server {
                         public void initChannel(SocketChannel ch) throws Exception {
                             ch.pipeline().addLast(
                                     new LoggingHandler(LogLevel.INFO),
-                                    new Encoder(),
-                                    new Decoder(),
-                                    new ServerHandler());
+                                    new GameEncoder(),
+                                    new GameDecoder(),
+                                    new NetworkChannelHandler());
                         }
                     });
 
