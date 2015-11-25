@@ -6,7 +6,7 @@ import org.azure.communication.protocol.ClientMessage;
 import org.azure.network.sessions.Session;
 
 public class VersionCheckMessageEvent {
-    @MessageEvent(messageId = EClientMessage.VERSION_CHECK)
+    @MessageEvent(messageId = EClientMessage.VersionCheckMessageEvent)
     public static void versionCheck(Session session, ClientMessage message) {
         System.out.println(message.readString());
     }

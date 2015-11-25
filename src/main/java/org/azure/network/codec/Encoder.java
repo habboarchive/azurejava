@@ -16,7 +16,7 @@ public class Encoder extends MessageToMessageEncoder<ByteBuf> {
     protected void encode(ChannelHandlerContext ctx, ByteBuf data, List<Object> out) throws Exception {
         try {
             if (ctx.channel().isOpen()) {
-
+                out.add(data.retain());
             }
         } catch (final Exception ex) {
             logger.error(ex.getMessage(), ex);
