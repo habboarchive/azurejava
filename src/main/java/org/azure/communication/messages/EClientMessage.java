@@ -6,10 +6,12 @@ package org.azure.communication.messages;
  */
 public class EClientMessage {
     public static final short VersionCheckMessageEvent = 4000;
-    public static final short InitCryptoMessageEvent = 112;
-    public static final short GenerateSecretKeyMessageEvent = 3712;
+    public static final short InitDiffieHandshakeMessageEvent = 112;
+    public static final short CompleteDiffieHandshakeMessageEvent = 3712;
     public static final short UniqueIDMessageEvent = 135;
     public static final short SSOTicketMessageEvent = 2649;
+    public static final short PongMessageEvent = 2527;
+    public static final short InfoRetrieveMessageEvent = 2173;
     public static final short LandingLoadWidgetMessageEvent = 2269;
     public static final short LandingRefreshPromosMessageEvent = 3975;
     public static final short LandingRefreshRewardMessageEvent = 1465;
@@ -19,7 +21,6 @@ public class EClientMessage {
     public static final short HotelViewDailyQuestMessageEvent = 3117;
     public static final short HotelViewRequestBadgeMessageEvent = 242;
     public static final short GetHotelViewHallOfFameMessageEvent = 3867;
-    public static final short InfoRetrieveMessageEvent = 2173;
     public static final short GetCurrencyBalanceMessageEvent = 2838;
     public static final short GetSubscriptionDataMessageEvent = 3785;
     public static final short OnlineConfirmationMessageEvent = 523;
@@ -31,7 +32,7 @@ public class EClientMessage {
     public static final short RelationshipsGetMessageEvent = 3895;
     public static final short SetRelationshipMessageEvent = 835;
     public static final short GetUserBadgesMessageEvent = 1961;
-    public static final short OnDisconnectMessageEvent = 1025;
+    public static final short DisconnectMessageEvent = 1025;
     public static final short GoToHotelViewMessageEvent = 151;
     public static final short UserUpdateLookMessageEvent = 1093;
     public static final short UserUpdateMottoMessageEvent = 1056;
@@ -297,7 +298,6 @@ public class EClientMessage {
     public static final short AcceptPollMessageEvent = 3986;
     public static final short RefusePollMessageEvent = 1539;
     public static final short AnswerPollQuestionMessageEvent = 2403;
-    public static final short PongMessageEvent = 2527;
     public static final short RetrieveCitizenshipStatus = 644;
     public static final short NuxAcceptGiftsMessageEvent = 3314;
     public static final short HabboCameraMessageEvent = 2673;
