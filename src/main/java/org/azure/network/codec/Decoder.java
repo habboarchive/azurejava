@@ -27,12 +27,12 @@ public class Decoder extends MessageToMessageDecoder<ByteBuf> {
 
         if (data.readByte() == 0x3C) {
             data.clear();
-            ctx.channel().write("<?xml version=\\\"1.0\\\"?>\\r\\n\" +\n" +
-                    "<!DOCTYPE cross-domain-policy SYSTEM \\\"/xml/dtds/cross-domain-policy.dtd\\\">\\r\\n\" +\n" +
-                    "<cross-domain-policy>\\r\\n\" +\n" +
-                    "<allow-access-from domain=\\\"*\\\" to-ports=\\\"1-31111\\\" />\\r\\n\" +\n" +
-                    "</cross-domain-policy>\\0")
-                    .addListener(ChannelFutureListener.CLOSE);
+            ctx.channel().write("<?xml version=\"1.0\"?>\r\n"
+                    + "<!DOCTYPE cross-domain-policy SYSTEM \"/xml/dtds/cross-domain-policy.dtd\">\r\n"
+                    + "<cross-domain-policy>\r\n"
+                    + "<allow-access-from domain=\"*\" to-ports=\"*\" />\r\n"
+                    + "</cross-domain-policy>\0");
+                    //.addListener(ChannelFutureListener.CLOSE);
             logger.info("Sent Habbo Policy to: " + ctx.channel().remoteAddress());
         } else {
             data.readerIndex(index);

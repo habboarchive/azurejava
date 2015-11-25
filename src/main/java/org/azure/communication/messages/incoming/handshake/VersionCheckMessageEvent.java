@@ -1,11 +1,13 @@
 package org.azure.communication.messages.incoming.handshake;
 
-import org.azure.communication.messages.IMessageEvent;
-import org.azure.communication.messages.MessageDataWrapper;
+import org.azure.communication.messages.EClientMessage;
+import org.azure.communication.messages.MessageEvent;
+import org.azure.communication.protocol.ClientMessage;
 import org.azure.network.sessions.Session;
 
-public class VersionCheckMessageEvent implements IMessageEvent {
-    public void parse(Session session, MessageDataWrapper message) {
-
+public class VersionCheckMessageEvent {
+    @MessageEvent(messageId = EClientMessage.VERSION_CHECK)
+    public static void versionCheck(Session session, ClientMessage message) {
+        System.out.println(message.readString());
     }
 }

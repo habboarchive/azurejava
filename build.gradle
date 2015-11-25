@@ -18,4 +18,16 @@ dependencies {
     compile('com.google.inject:guice:4.0')
     compile('com.zaxxer:HikariCP:2.4.2')
     compile('mysql:mysql-connector-java:5.1.37')
+    compile('org.reflections:reflections:0.9.10')
+    compile('com.netflix.governator:governator:1.10.5')
+    compile('com.netflix.governator:governator-archaius:1.10.5')
+    compile('com.netflix.archaius:archaius-core:0.7.1')
+    compile('com.lexicalscope.jewelcli:jewelcli:0.8.9')
+    compile('com.mycila.guice.extensions:mycila-guice-extensions:3.6.ga') {
+        exclude group: 'com.google.guava'
+    }
+    compile('com.mycila.guice.extensions:mycila-guice-jsr250:3.6.ga') {
+        exclude group: 'org.sonatype.sisu'
+        exclude group: 'com.google.guava'
+    }
 }

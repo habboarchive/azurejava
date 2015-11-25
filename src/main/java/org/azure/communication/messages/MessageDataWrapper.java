@@ -28,6 +28,8 @@ public class MessageDataWrapper {
         return this.length;
     }
 
+    public ByteBuf getData() { return this.buffer; }
+
     public byte[] readToEnd() {
         return this.buffer.readBytes(this.offset).array();
     }

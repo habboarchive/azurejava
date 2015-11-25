@@ -20,7 +20,7 @@ public class SessionManager {
             sessions.put(ch, session);
             return session;
         }
-        //logger.debug("Duplicate connection from user: " + ch.remoteAddress());
+        logger.debug("Duplicate connection from user: " + ch.remoteAddress());
         ch.disconnect();
         return null;
     }

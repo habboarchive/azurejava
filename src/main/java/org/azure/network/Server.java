@@ -1,25 +1,40 @@
 package org.azure.network;
 
+import com.google.inject.Injector;
+import com.netflix.governator.annotations.AutoBindSingleton;
+import com.netflix.governator.annotations.Configuration;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.azure.network.codec.Encoder;
 import org.azure.network.codec.Decoder;
+import org.azure.network.codec.Encoder;
 
+import java.net.InetSocketAddress;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 
+@AutoBindSingleton
 public class Server {
     private static final Logger logger = LogManager.getLogger(Server.class);
+    private static Injector injector;
+    @Configuration(value = "org.azure.network.Server.port")
+    private int port;
+    @Configuration(value = "org.azure.network.Server.host")
+    private String host;
 
-    private final int port;
+    public static Injector getInjector() {
+        return injector;
+    }
+
+    public static void setInjector(Injector injector) {
+        Server.injector = injector;
+    }
 
     private static final ThreadFactory factory = new ThreadFactory() {
         private final ThreadFactory wrapped = Executors.defaultThreadFactory();
@@ -31,17 +46,10 @@ public class Server {
         }
     };
 
-    public Server(int port) {
-        this.port = port;
-    }
-
-    public int getPort() {
-        return this.port;
-    }
-
-    public void run() throws Exception {
+    public void startServer() {
         EventLoopGroup bossGroup = new NioEventLoopGroup(Runtime.getRuntime().availableProcessors(), factory);
         EventLoopGroup workerGroup = new NioEventLoopGroup();
+
         try {
             ServerBootstrap b = new ServerBootstrap();
             b.group(bossGroup, workerGroup)
@@ -60,13 +68,15 @@ public class Server {
                         }
                     });
 
-            //ChannelFuture f = b.bind(this.port).sync();
-            Channel ch = b.bind(port).sync().channel();
+            Channel ch = b.bind(new InetSocketAddress(host, port)).sync().channel();
+            logger.info("Successfully established a socket connection on {}:{}", this.host, this.port);
             ch.closeFuture().sync();
-            // Don't know if this will show due to the channel executing closeFuture().sync();
-            logger.info("Successfully established a socket connection on port " + this.port);
         } catch (final ChannelException ex) {
-            logger.info("Failed to establish a socket connection on port " + this.port);
+            logger.error("Failed to establish a socket connection on {}:{}", this.host, this.port);
+            System.exit(1);
+        } catch (InterruptedException e) {
+            logger.error("Interrupted while establishing a socket connection on {}:{}", this.host, this.port);
+            System.exit(1);
         } finally {
             workerGroup.shutdownGracefully();
             bossGroup.shutdownGracefully();
