@@ -9,8 +9,6 @@ import org.azure.communication.protocol.ServerMessage;
  */
 public class AuthenticationOKMessageComposer {
     public static ServerMessage compose() {
-        ServerMessage msg = new ServerMessage(EServerMessage.AuthenticationOKMessageComposer);
-
-        return msg;
+        return new ServerMessage(EServerMessage.AuthenticationOKMessageComposer);
     }
 }

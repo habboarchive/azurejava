@@ -16,6 +16,7 @@ public class Session {
     private final Channel channel;
     private DiffieHellman diffieHellman;
     private RC4 rc4 = null;
+    private String uniqueID;
 
     public Session(int id, Channel ch) {
         this.id = id;
@@ -50,4 +51,12 @@ public class Session {
     }
 
     public RC4 getRC4() { return this.rc4; }
+
+    public String getUniqueID() {
+        return this.uniqueID;
+    }
+
+    public void setUniqueID(String uniqueID) {
+        this.uniqueID = uniqueID;
+    }
 }

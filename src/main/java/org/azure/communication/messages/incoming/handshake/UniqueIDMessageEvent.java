@@ -13,7 +13,6 @@ import org.azure.network.sessions.Session;
 public class UniqueIDMessageEvent {
     @MessageEvent(messageId = EClientMessage.UniqueIDMessageEvent)
     public static void uniqueId(Session session, ClientMessage message) {
-        String uniqueId = message.readString();
-        session.sendMessage(UniqueMachineIDComposer.compose(uniqueId));
+        session.setUniqueID(message.readString());
     }
 }
