@@ -1,4 +1,4 @@
-package org.azure.communication.messages.outgoing.handshake;
+package org.azure.communication.messages.outgoing.unsorted;
 
 import org.azure.communication.messages.EServerMessage;
 import org.azure.communication.protocol.ServerMessage;

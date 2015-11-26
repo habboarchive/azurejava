@@ -8,6 +8,7 @@ import org.azure.network.sessions.Session;
  * AzureJava,
  * Edited: 11/26/2015 (Scott Stamp).
  */
+@SuppressWarnings("unused")
 public class UserGetVolumeSettingsMessageEvent {
     @MessageEvent(messageId = 2214)
     public static void getVolumeSettings(Session session, ClientMessage message) {

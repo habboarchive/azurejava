@@ -11,6 +11,7 @@ import org.azure.network.sessions.Session;
  * AzureJava,
  * Edited: 11/25/2015 (Scott Stamp).
  */
+@SuppressWarnings("unused")
 public class CompleteDiffieHandshakeMessageEvent {
     @MessageEvent(messageId = EClientMessage.CompleteDiffieHandshakeMessageEvent)
     public static void completeHandshake(Session session, ClientMessage message) {

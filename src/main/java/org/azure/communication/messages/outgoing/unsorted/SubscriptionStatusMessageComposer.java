@@ -1,4 +1,4 @@
-package org.azure.communication.messages.incoming.unsorted;
+package org.azure.communication.messages.outgoing.unsorted;
 
 import org.azure.communication.messages.EServerMessage;
 import org.azure.communication.protocol.ServerMessage;

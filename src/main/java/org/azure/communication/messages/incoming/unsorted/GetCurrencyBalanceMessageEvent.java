@@ -11,6 +11,7 @@ import org.azure.network.sessions.Session;
  * AzureJava,
  * Edited: 11/26/2015 (Scott Stamp).
  */
+@SuppressWarnings("unused")
 public class GetCurrencyBalanceMessageEvent {
     @MessageEvent(messageId = EClientMessage.GetCurrencyBalanceMessageEvent)
     public static void getCurrencyBalance(Session session, ClientMessage message) {
