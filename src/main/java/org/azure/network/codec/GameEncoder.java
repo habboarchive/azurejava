@@ -5,6 +5,8 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageEncoder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.azure.Azure;
+import org.azure.network.sessions.Session;
 
 import java.util.List;
 
@@ -16,7 +18,13 @@ public class GameEncoder extends MessageToMessageEncoder<ByteBuf> {
         data.retain();
         try {
             if (ctx.channel().isOpen()) {
-                out.add(data);
+                Session session = Azure.getSessionManager().getSessionByChannel(ctx.channel());
+                if (session.getRC4() != null) {
+//                    out.add(session.getRC4().decipher(data));
+                    out.add(data);
+                } else {
+                    out.add(data);
+                }
             }
         } catch (final Exception ex) {
             logger.error(ex.getMessage(), ex);

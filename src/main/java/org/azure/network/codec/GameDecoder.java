@@ -45,10 +45,16 @@ public class GameDecoder extends MessageToMessageDecoder<ByteBuf> {
 
             data.release();
         } else {
-            int length = data.readInt();
-            short header = data.readShort();
+            ByteBuf msgData = data.copy();
             Session session = Azure.getSessionManager().getSessionByChannel(ctx.channel());
-            ClientMessage msg = new ClientMessage(header, data);
+
+            if (session.getRC4() != null) {
+                msgData = session.getRC4().decipher(msgData);
+            }
+
+            int length = msgData.readInt();
+            short header = msgData.readShort();
+            ClientMessage msg = new ClientMessage(header, msgData);
             MessageHandler.invoke(session, msg);
         }
     }

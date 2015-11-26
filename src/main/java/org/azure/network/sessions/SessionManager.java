@@ -5,7 +5,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.azure.communication.protocol.ServerMessage;
 
-import java.util.Iterator;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -40,7 +39,7 @@ public class SessionManager {
     }
 
     public void broadcast(ServerMessage message) {
-        sessions.forEach((k,v) -> v.sendPacket(message));
+        sessions.forEach((k,v) -> v.sendMessage(message));
     }
 
     public int getSessionCount() {

@@ -7,7 +7,7 @@ package org.azure.communication.messages;
 public class EClientMessage {
     public static final short VersionCheckMessageEvent = 4000;
     public static final short InitDiffieHandshakeMessageEvent = 112;
-    public static final short CompleteDiffieHandshakeMessageEvent = 3712;
+    public static final short CompleteDiffieHandshakeMessageEvent = 3713;
     public static final short UniqueIDMessageEvent = 135;
     public static final short SSOTicketMessageEvent = 2649;
     public static final short PongMessageEvent = 2527;

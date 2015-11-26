@@ -10,11 +10,11 @@ public class ClientMessage extends Message {
     /**
      * Create a new ClientMessage with the available data
      *
-     * @param opCode tells us how to parse the message
+     * @param header tells us how to parse the message
      * @param data   the data to parse
      */
-    public ClientMessage(short opCode, ByteBuf data) {
-        super(opCode, (data != null) ? data : Unpooled.EMPTY_BUFFER);
+    public ClientMessage(short header, ByteBuf data) {
+        super(header, (data != null) ? data : Unpooled.EMPTY_BUFFER);
     }
 
     /**

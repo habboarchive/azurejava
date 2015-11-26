@@ -14,6 +14,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.azure.network.codec.GameDecoder;
 import org.azure.network.codec.GameEncoder;
+import org.azure.utils.RSA;
 
 import java.net.InetSocketAddress;
 import java.util.concurrent.Executors;
@@ -23,6 +24,7 @@ import java.util.concurrent.ThreadFactory;
 public class NetworkBootstrap {
     private static final Logger logger = LogManager.getLogger(NetworkBootstrap.class);
     private static Injector injector;
+    private static RSA rsa;
     @Configuration(value = "org.azure.network.Server.port")
     private int port;
     @Configuration(value = "org.azure.network.Server.host")
@@ -31,6 +33,7 @@ public class NetworkBootstrap {
     public static Injector getInjector() {
         return injector;
     }
+    public static RSA getRSA() { return rsa; }
 
     public static void setInjector(Injector injector) {
         NetworkBootstrap.injector = injector;
@@ -47,6 +50,9 @@ public class NetworkBootstrap {
     };
 
     public void startServer() {
+        rsa = injector.getInstance(RSA.class);
+        rsa.init();
+
         EventLoopGroup bossGroup = new NioEventLoopGroup(Runtime.getRuntime().availableProcessors(), factory);
         EventLoopGroup workerGroup = new NioEventLoopGroup();
 
@@ -60,11 +66,10 @@ public class NetworkBootstrap {
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         public void initChannel(SocketChannel ch) throws Exception {
-                            ch.pipeline().addLast(
-                                    new LoggingHandler(LogLevel.INFO),
-                                    new GameEncoder(),
-                                    new GameDecoder(),
-                                    new NetworkChannelHandler());
+                            ch.pipeline().addLast("loggingHandler", new LoggingHandler(LogLevel.INFO));
+                            ch.pipeline().addLast("gameEncoder", new GameEncoder());
+                            ch.pipeline().addLast("gameDecoder", new GameDecoder());
+                            ch.pipeline().addLast("networkChannelHandler", new NetworkChannelHandler());
                         }
                     });
 
