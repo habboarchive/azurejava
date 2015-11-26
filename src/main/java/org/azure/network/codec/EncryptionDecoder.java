@@ -23,10 +23,8 @@ public class EncryptionDecoder extends ByteToMessageDecoder {
     }
 
     @Override
-    protected void decode(ChannelHandlerContext ctx, ByteBuf buffer, List<Object> out) throws Exception {
-        byte[] data = buffer.readBytes(buffer.readableBytes()).array();
-        System.out.println("Deciphered data!");
-        //out.add(Unpooled.copiedBuffer(this.rc4.decipher(data)));
+    protected void decode(ChannelHandlerContext ctx, ByteBuf buf, List<Object> out) throws Exception {
+        out.add(rc4.decipher(buf));
     }
 }
 

@@ -7,6 +7,7 @@ import org.azure.communication.encryption.DiffieHellman;
 import org.azure.communication.encryption.RC4;
 import org.azure.communication.messages.outgoing.unsorted.SuperNotificationMessageComposer;
 import org.azure.communication.protocol.ServerMessage;
+import org.azure.network.codec.EncryptionDecoder;
 
 public class Session {
     private static final Logger logger = LogManager.getLogger(Session.class);
@@ -44,8 +45,8 @@ public class Session {
     }
 
     public void enableRC4(byte[] sharedKey) {
-        this.rc4 = new RC4(sharedKey);
-        //this.channel.pipeline().addBefore("gameDecoder", "gameCrypto", new EncryptionDecoder(sharedKey));
+//        this.rc4 = new RC4(sharedKey);
+        this.channel.pipeline().addBefore("gameDecoder", "gameCrypto", new EncryptionDecoder(sharedKey));
     }
 
     public RC4 getRC4() {
