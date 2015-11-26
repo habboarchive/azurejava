@@ -1,13 +1,12 @@
 package org.azure.network.sessions;
 
-import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
-import io.netty.channel.ChannelFuture;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.azure.communication.protocol.ServerMessage;
 import org.azure.communication.encryption.DiffieHellman;
 import org.azure.communication.encryption.RC4;
+import org.azure.communication.messages.outgoing.unsorted.SuperNotificationMessageComposer;
+import org.azure.communication.protocol.ServerMessage;
 
 public class Session {
     private static final Logger logger = LogManager.getLogger(Session.class);
@@ -59,5 +58,9 @@ public class Session {
 
     public void setUniqueID(String uniqueID) {
         this.uniqueID = uniqueID;
+    }
+
+    public void sendHotelAlert(String title, String message) {
+        this.sendMessage(SuperNotificationMessageComposer.compose("staffcloud", title, message));
     }
 }
