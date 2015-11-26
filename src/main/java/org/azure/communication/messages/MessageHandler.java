@@ -1,20 +1,16 @@
 package org.azure.communication.messages;
 
-import org.azure.communication.protocol.ClientMessage;
-import org.azure.communication.messages.MessageEvent;
-import org.azure.network.sessions.Session;
-
 import com.netflix.governator.annotations.AutoBindSingleton;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.azure.communication.protocol.ClientMessage;
+import org.azure.network.sessions.Session;
 import org.reflections.Reflections;
 import org.reflections.scanners.MethodAnnotationsScanner;
 import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import javax.annotation.PostConstruct;
-import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
@@ -29,7 +25,7 @@ import java.util.Set;
 
 @AutoBindSingleton
 public class MessageHandler {
-    private static HashMap<Short, Method> messages = new HashMap<Short, Method>();
+    private static HashMap<Short, Method> messages = new HashMap<>();
     private static final Logger logger = LogManager.getLogger(MessageHandler.class);
     private static boolean initialized = false;
 
@@ -44,8 +40,8 @@ public class MessageHandler {
         String pkg = "org.azure.communication.messages";
 
         Reflections reflections = new Reflections(new ConfigurationBuilder()
-            .setUrls(ClasspathHelper.forPackage(pkg))
-            .setScanners(new MethodAnnotationsScanner()));
+                .setUrls(ClasspathHelper.forPackage(pkg))
+                .setScanners(new MethodAnnotationsScanner()));
 
         Set<Method> methods = reflections.getMethodsAnnotatedWith(MessageEvent.class);
         for (Method method : methods) {
@@ -84,10 +80,9 @@ public class MessageHandler {
 
         logger.debug("Incoming message (id: " + message.opCode + " session: " + session.getId() + ") " + message.toString());
         try {
+            logger.info("Incoming message [" + messages.get(message.opCode).getDeclaringClass().getName() + "]: (id: " + message.opCode + " session: " + session.getId() + ") " + message.toString());
             messages.get(message.opCode).invoke(null, session, message);
-        } catch (IllegalAccessException e) {
-            logger.error("Error", e);
-        } catch (InvocationTargetException e) {
+        } catch (IllegalAccessException | InvocationTargetException e) {
             logger.error("Error", e);
         }
     }
