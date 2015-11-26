@@ -14,7 +14,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.azure.network.codec.GameDecoder;
 import org.azure.network.codec.GameEncoder;
-import org.azure.utils.RSA;
+import org.azure.communication.encryption.RSA;
 
 import java.net.InetSocketAddress;
 import java.util.concurrent.Executors;

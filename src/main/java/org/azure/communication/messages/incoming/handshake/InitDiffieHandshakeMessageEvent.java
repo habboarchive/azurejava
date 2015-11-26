@@ -6,7 +6,7 @@ import org.azure.communication.messages.outgoing.handshake.InitDiffieHandshakeCo
 import org.azure.communication.protocol.ClientMessage;
 import org.azure.network.NetworkBootstrap;
 import org.azure.network.sessions.Session;
-import org.azure.utils.DiffieHellman;
+import org.azure.communication.encryption.DiffieHellman;
 
 public class InitDiffieHandshakeMessageEvent {
     @MessageEvent(messageId = EClientMessage.InitDiffieHandshakeMessageEvent)

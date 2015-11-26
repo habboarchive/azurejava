@@ -6,9 +6,8 @@ import io.netty.channel.ChannelFuture;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.azure.communication.protocol.ServerMessage;
-import org.azure.network.codec.EncryptionDecoder;
-import org.azure.utils.DiffieHellman;
-import org.azure.utils.RC4;
+import org.azure.communication.encryption.DiffieHellman;
+import org.azure.communication.encryption.RC4;
 
 public class Session {
     private static final Logger logger = LogManager.getLogger(Session.class);
