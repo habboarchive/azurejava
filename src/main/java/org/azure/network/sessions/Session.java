@@ -45,12 +45,7 @@ public class Session {
     }
 
     public void enableRC4(byte[] sharedKey) {
-//        this.rc4 = new RC4(sharedKey);
         this.channel.pipeline().addBefore("gameDecoder", "gameCrypto", new EncryptionDecoder(sharedKey));
-    }
-
-    public RC4 getRC4() {
-        return this.rc4;
     }
 
     public String getUniqueID() {
