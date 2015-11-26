@@ -18,28 +18,26 @@ public class SSOTicketMessageEvent {
         String ssoTicket = message.readString();
         // We'd do some login logic here but fuck that, I'm not implementing users just yet.
 
+        // 3540
         session.sendQueued(UniqueMachineIDComposer.compose(session.getUniqueID()));
+        // 3151
         session.sendQueued(AuthenticationOKMessageComposer.compose());
+        // 2159
         session.sendQueued(HomeRoomMessageComposer.compose());
+        // 2895
         session.sendQueued(MinimailCountMessageComposer.compose());
-        session.sendQueued(ActivityPointsMessageComposer.compose());
         session.getChannel().flush();
-
-        session.sendMessage(CreditsBalanceMessageComposer.compose(9999)); // 9999 credits
 
 //        session.getChannel().flush();
 
-//        session.sendMessage(HomeRoomMessageComposer.compose());
-//        session.sendMessage(MinimailCountMessageComposer.compose());
-//        session.sendMessage(FavouriteRoomsMessageComposer.compose());
-//        session.sendMessage(UserClubRightsMessageComposer.compose());
-//        session.sendMessage(EnableNotificationsMessageComposer.compose());
-//        session.sendMessage(EnableTradingMessageComposer.compose());
-//        session.sendMessage(ActivityPointsMessageComposer.compose());
+        session.sendMessage(FavouriteRoomsMessageComposer.compose());
+        session.sendMessage(UserClubRightsMessageComposer.compose());
+        session.sendMessage(EnableNotificationsMessageComposer.compose());
+        session.sendMessage(EnableTradingMessageComposer.compose());
 
-        session.sendMessage(UserObjectMessageComposer.compose());
-        session.sendMessage(BuildersClubMembershipMessageComposer.compose());
-        session.sendMessage(SendPerkAllowancesMessageComposer.compose());
+
+
+
         //session.sendMessage();
     }
 }

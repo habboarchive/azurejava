@@ -21,7 +21,7 @@ public class UserObjectMessageComposer {
         msg.writeInt(3); // Daily Respect Points
         msg.writeInt(3); // Daily Pet Respect Points
         msg.writeBoolean(true); // ?
-        msg.writeString(""); // Last Online
+        msg.writeString("1448526834"); // Last Online (format?)
         msg.writeBoolean(true); // Can Change Username
         msg.writeBoolean(false); // ?
 
