@@ -11,7 +11,6 @@ public class MinimailCountMessageComposer {
     public static ServerMessage compose() {
         ServerMessage msg = new ServerMessage(EServerMessage.MinimailCountMessageComposer);
         msg.writeInt(0); // Minimail unread count
-
         return msg;
     }
 }

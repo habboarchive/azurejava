@@ -61,12 +61,13 @@ public class NetworkBootstrap {
             b.group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class)
                     .option(ChannelOption.SO_BACKLOG, 1000)
-                            //.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 10000)
+                    //.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 10000)
+                    .childOption(ChannelOption.TCP_NODELAY, true)
                     .childOption((ChannelOption.SO_KEEPALIVE), true)
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         public void initChannel(SocketChannel ch) throws Exception {
-                            ch.pipeline().addLast("loggingHandler", new LoggingHandler(LogLevel.INFO));
+                            ch.pipeline().addLast("loggingHandler", new LoggingHandler(LogLevel.DEBUG));
                             ch.pipeline().addLast("gameEncoder", new GameEncoder());
                             ch.pipeline().addLast("gameDecoder", new GameDecoder());
                             ch.pipeline().addLast("networkChannelHandler", new NetworkChannelHandler());

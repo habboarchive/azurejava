@@ -21,41 +21,46 @@ public class GameDecoder extends MessageToMessageDecoder<ByteBuf> {
 
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf data, List<Object> out) throws Exception {
-        ByteBuf safeData = data.copy();
+        try {
+            ByteBuf safeData = data.copy();
 
-        out.add(safeData);
+            out.add(safeData);
 
-        if (safeData.readableBytes() < 5) {
-            return;
-        }
-
-        if (safeData.readByte() == 0x3C) {
-            ChannelFuture cf = ctx.channel().writeAndFlush(Unpooled.copiedBuffer("<?xml version=\"1.0\"?>\r\n" +
-                    "<!DOCTYPE cross-domain-policy SYSTEM \"/xml/dtds/cross-domain-policy.dtd\">\r\n" +
-                    "<cross-domain-policy>\r\n" +
-                    "<allow-access-from domain=\"*\" to-ports=\"*\" />\r\n" +
-                    "</cross-domain-policy>\0", CharsetUtil.UTF_8))
-                    .addListener(ChannelFutureListener.CLOSE);
-
-            if (!cf.isSuccess()) {
-                logger.error("Policy File send failure:", cf.cause());
+            if (safeData.readableBytes() < 5) {
+                return;
             }
 
-            logger.info("Sent Habbo Policy to: " + ctx.channel().remoteAddress());
+            if (safeData.readByte() == 0x3C) {
+                ChannelFuture cf = ctx.channel().writeAndFlush(Unpooled.copiedBuffer("<?xml version=\"1.0\"?>\r\n" +
+                        "<!DOCTYPE cross-domain-policy SYSTEM \"/xml/dtds/cross-domain-policy.dtd\">\r\n" +
+                        "<cross-domain-policy>\r\n" +
+                        "<allow-access-from domain=\"*\" to-ports=\"*\" />\r\n" +
+                        "</cross-domain-policy>\0", CharsetUtil.UTF_8))
+                        .addListener(ChannelFutureListener.CLOSE);
 
-            data.release();
-        } else {
-            ByteBuf msgData = data.copy();
-            Session session = Azure.getSessionManager().getSessionByChannel(ctx.channel());
+                if (!cf.isSuccess()) {
+                    logger.error("Policy File send failure:", cf.cause());
+                }
 
-            if (session.getRC4() != null) {
-                msgData = session.getRC4().decipher(msgData);
+                logger.info("Sent Habbo Policy to: " + ctx.channel().remoteAddress());
+
+                data.release();
+            } else {
+                ByteBuf msgData = data.copy();
+                Session session = Azure.getSessionManager().getSessionByChannel(ctx.channel());
+
+                if (session.getRC4() != null) {
+                    msgData = session.getRC4().decipher(msgData);
+                }
+
+                int length = msgData.readInt();
+                short header = msgData.readShort();
+                ClientMessage msg = new ClientMessage(header, msgData);
+                MessageHandler.invoke(session, msg);
             }
-
-            int length = msgData.readInt();
-            short header = msgData.readShort();
-            ClientMessage msg = new ClientMessage(header, msgData);
-            MessageHandler.invoke(session, msg);
+        } catch (Throwable ex) {
+            ex.printStackTrace();
+            throw ex;
         }
     }
 }

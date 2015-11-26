@@ -32,17 +32,16 @@ public class Session {
         return this.channel;
     }
 
-    public DiffieHellman getDiffieHellman() { return this.diffieHellman; }
-
-    public void sendMessage(ServerMessage message) {
-        this.sendRaw(message.getBuffer());
+    public DiffieHellman getDiffieHellman() {
+        return this.diffieHellman;
     }
 
-    private void sendRaw(ByteBuf data) {
-        ChannelFuture cf = channel.writeAndFlush(data);
-        if (!cf.isSuccess()) {
-            logger.error("Error", cf.cause());
-        }
+    public void sendQueued(ServerMessage message) {
+        channel.write(message);
+    }
+
+    public void sendMessage(ServerMessage message) {
+        channel.writeAndFlush(message);
     }
 
     public void enableRC4(byte[] sharedKey) {
@@ -50,7 +49,9 @@ public class Session {
         //this.channel.pipeline().addBefore("gameDecoder", "gameCrypto", new EncryptionDecoder(sharedKey));
     }
 
-    public RC4 getRC4() { return this.rc4; }
+    public RC4 getRC4() {
+        return this.rc4;
+    }
 
     public String getUniqueID() {
         return this.uniqueID;
