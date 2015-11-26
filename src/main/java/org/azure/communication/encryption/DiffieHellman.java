@@ -1,4 +1,4 @@
-package org.azure.utils;
+package org.azure.communication.encryption;
 
 /**
  * AzureJava,

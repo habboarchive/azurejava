@@ -5,10 +5,9 @@ package org.azure.network.codec;
  * Edited: 11/26/2015 (Scott Stamp).
  */
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
-import org.azure.utils.RC4;
+import org.azure.communication.encryption.RC4;
 
 import java.util.List;
 
