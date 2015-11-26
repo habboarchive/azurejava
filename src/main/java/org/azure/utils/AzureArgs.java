@@ -3,7 +3,8 @@ package org.azure.utils;
 import com.lexicalscope.jewel.cli.Option;
 
 /**
- * Created by scott on 11/25/2015.
+ * AzureJava,
+ * Edited: 11/25/2015 (Scott Stamp).
  */
 public interface AzureArgs {
     @Option(description = "system configuration bootstrap file", defaultValue = "azure.properties")
@@ -18,7 +19,7 @@ public interface AzureArgs {
     @Option(description = "MySQL server user", defaultValue = "root")
     String getDatabaseUser();
 
-    @Option(description = "MySQL server password", defaultValue = "drewuv6cre6uYas")
+    @Option(description = "MySQL server password", defaultValue = "\\")
     String getDatabasePassword();
 
     @Option(description = "MySQL server database name", defaultValue = "azurejava")

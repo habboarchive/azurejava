@@ -13,11 +13,10 @@ public class GameEncoder extends MessageToMessageEncoder<ByteBuf> {
 
     @Override
     protected void encode(ChannelHandlerContext ctx, ByteBuf data, List<Object> out) throws Exception {
+        data.retain();
         try {
             if (ctx.channel().isOpen()) {
-                System.out.println("Sending " + data);
                 out.add(data);
-                System.out.println("Sent");
             }
         } catch (final Exception ex) {
             logger.error(ex.getMessage(), ex);
