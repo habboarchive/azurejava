@@ -4,9 +4,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageEncoder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.azure.Azure;
 import org.azure.communication.protocol.ServerMessage;
-import org.azure.network.sessions.Session;
 
 import java.util.List;
 
@@ -19,7 +17,7 @@ public class GameEncoder extends MessageToMessageEncoder<ServerMessage> {
             msg.getBuffer().retain();
             out.add(msg.getBuffer());
             logger.info("Message sent (id: " + msg.opCode + " length: " + msg.length() +") session: 1");
-            //logger.info(msg.toString());
+            logger.info(msg.toString());
         }
     }
 }

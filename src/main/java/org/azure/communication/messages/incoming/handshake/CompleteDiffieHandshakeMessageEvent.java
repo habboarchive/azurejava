@@ -20,7 +20,7 @@ public class CompleteDiffieHandshakeMessageEvent {
 
         String P = session.getDiffieHellman().PublicKey.toString();
         String encP = NetworkBootstrap.getRSA().Sign(P);
-        session.sendMessage(SecretKeyMessageComposer.compose(encP, false));
+        session.sendMessage(SecretKeyMessageComposer.compose(encP, false)); // no server->client crypto yet...
 
         session.getDiffieHellman().GenerateSharedKey(plaintextKey);
         byte[] sharedKey = session.getDiffieHellman().SharedKey.toByteArray();
