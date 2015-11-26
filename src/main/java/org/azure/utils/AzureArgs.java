@@ -18,7 +18,7 @@ public interface AzureArgs {
     @Option(description = "MySQL server user", defaultValue = "root")
     String getDatabaseUser();
 
-    @Option(description = "MySQL server password", defaultValue = "\\")
+    @Option(description = "MySQL server password", defaultValue = "drewuv6cre6uYas")
     String getDatabasePassword();
 
     @Option(description = "MySQL server database name", defaultValue = "azurejava")

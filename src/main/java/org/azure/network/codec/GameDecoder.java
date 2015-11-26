@@ -20,6 +20,8 @@ public class GameDecoder extends MessageToMessageDecoder<ByteBuf> {
 
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf data, List<Object> out) throws Exception {
+        out.add(data);
+
         ByteBuf safeData = data.copy();
 
         if (safeData.readableBytes() < 5) {
@@ -41,7 +43,6 @@ public class GameDecoder extends MessageToMessageDecoder<ByteBuf> {
             Session session = Azure.getSessionManager().getSessionByChannel(ctx.channel());
             ClientMessage msg = new ClientMessage(header, data);
             MessageHandler.invoke(session, msg);
-            out.add(msg);
         }
     }
 }
