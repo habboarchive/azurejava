@@ -9,7 +9,7 @@ import java.math.BigInteger;
 import java.util.Random;
 
 public class DiffieHellman {
-    public int BITLENGTH = 32;
+    public int BITLENGTH = 30;
 
     public BigInteger Prime;
     public BigInteger Generator;
