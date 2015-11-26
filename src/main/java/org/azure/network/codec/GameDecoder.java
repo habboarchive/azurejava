@@ -11,8 +11,6 @@ import org.azure.network.sessions.Session;
 import java.util.List;
 
 public class GameDecoder extends MessageToMessageDecoder<ByteBuf> {
-//    private static final Logger logger = LogManager.getLogger(GameDecoder.class);
-
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf buf, List<Object> out) throws Exception {
         out.add(buf);

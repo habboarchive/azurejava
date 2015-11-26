@@ -2,6 +2,7 @@ package org.azure.network.codec;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ReplayingDecoder;
 
@@ -22,9 +23,9 @@ public class PolicyDecoder extends ReplayingDecoder<Void> {
                     + "<cross-domain-policy>\r\n"
                     + "<allow-access-from domain=\"*\" to-ports=\"*\" />\r\n"
                     + "</cross-domain-policy>\0";
-            ctx.channel().writeAndFlush(Unpooled.copiedBuffer(p.getBytes()));
+            ctx.writeAndFlush(Unpooled.copiedBuffer(p.getBytes())).addListener(ChannelFutureListener.CLOSE);
         } else {
-            ctx.channel().pipeline().remove("policyDecoder");
+            ctx.pipeline().remove("policyDecoder");
         }
     }
 }

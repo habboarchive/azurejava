@@ -27,4 +27,3 @@ public class EncryptionDecoder extends ByteToMessageDecoder {
         out.add(rc4.decipher(buf));
     }
 }
-
