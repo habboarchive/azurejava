@@ -12,9 +12,10 @@ import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.azure.communication.encryption.RSA;
 import org.azure.network.codec.GameDecoder;
 import org.azure.network.codec.GameEncoder;
-import org.azure.communication.encryption.RSA;
+import org.azure.network.codec.PolicyDecoder;
 
 import java.net.InetSocketAddress;
 import java.util.concurrent.Executors;
@@ -42,6 +43,7 @@ public class NetworkBootstrap {
     private static final ThreadFactory factory = new ThreadFactory() {
         private final ThreadFactory wrapped = Executors.defaultThreadFactory();
 
+        @SuppressWarnings("NullableProblems")
         public Thread newThread(final Runnable r) {
             final Thread t = wrapped.newThread(r);
             t.setDaemon(true);
@@ -69,6 +71,7 @@ public class NetworkBootstrap {
                         public void initChannel(SocketChannel ch) throws Exception {
                             ch.pipeline().addLast("loggingHandler", new LoggingHandler(LogLevel.DEBUG));
                             ch.pipeline().addLast("gameEncoder", new GameEncoder());
+                            ch.pipeline().addLast("policyDecoder", new PolicyDecoder());
                             ch.pipeline().addLast("gameDecoder", new GameDecoder());
                             ch.pipeline().addLast("networkChannelHandler", new NetworkChannelHandler());
                         }
