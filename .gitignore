@@ -2,3 +2,4 @@ gradle/
 build/
 .idea/
 .gradle/
+src/main/java/org/azure/utils/AzureArgs.java
