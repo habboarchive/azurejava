@@ -4,7 +4,6 @@ import io.netty.channel.Channel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.azure.communication.encryption.DiffieHellman;
-import org.azure.communication.encryption.RC4;
 import org.azure.communication.messages.outgoing.unsorted.SuperNotificationMessageComposer;
 import org.azure.communication.protocol.ServerMessage;
 import org.azure.network.codec.EncryptionDecoder;
@@ -15,7 +14,6 @@ public class Session {
     private final int id;
     private final Channel channel;
     private DiffieHellman diffieHellman;
-    private RC4 rc4 = null;
     private String uniqueID;
 
     public Session(int id, Channel ch) {
@@ -26,6 +24,15 @@ public class Session {
 
     public int getId() {
         return this.id;
+    }
+
+    public void killSession() {
+        if (this.channel != null) {
+            this.channel.close();
+            logger.info("Killed <Session " + this.id + ">");
+        } else {
+            logger.error("Can't kill <Session " + this.id + ">, already disposed.");
+        }
     }
 
     public Channel getChannel() {

@@ -12,7 +12,7 @@ public class UserObjectMessageComposer {
         ServerMessage msg = new ServerMessage(EServerMessage.UserObjectMessageComposer);
         msg.writeInt(1); // User ID
         msg.writeString("Scott"); // Username
-        msg.writeString("hr-115-42.hd-190-1.ch-215-62.lg-285-91.sh-290-62"); // Figure
+        msg.writeString("hr-831-1407.hd-190-14.ch-3015-100.lg-285-82.sh-295-64.fa-1201"); // Figure
         msg.writeString("M"); // Gender
         msg.writeString("AzureJAVA - Developer"); // Motto
         msg.writeString(""); // ?
