@@ -17,7 +17,6 @@ import java.util.List;
  */
 public class EncryptionDecoder extends ByteToMessageDecoder {
     private RC4 rc4;
-
     public EncryptionDecoder(byte[] key) {
         this.rc4 = new RC4(key);
     }
@@ -27,3 +26,4 @@ public class EncryptionDecoder extends ByteToMessageDecoder {
         out.add(rc4.decipher(buf));
     }
 }
+

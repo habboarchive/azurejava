@@ -15,10 +15,10 @@ import java.util.List;
 public class PolicyDecoder extends ByteToMessageDecoder {
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf buf, List<Object> out) throws Exception {
-        byte delimiter = buf.readByte();
+        char delimiter = (char)buf.readByte();
         buf.resetReaderIndex();
 
-        if (delimiter == 60) {
+        if (delimiter == '<') {
             String p = "<?xml version=\"1.0\"?>\r\n"
                     + "<!DOCTYPE cross-domain-policy SYSTEM \"/xml/dtds/cross-domain-policy.dtd\">\r\n"
                     + "<cross-domain-policy>\r\n"
@@ -26,7 +26,7 @@ public class PolicyDecoder extends ByteToMessageDecoder {
                     + "</cross-domain-policy>\0";
 
             ctx.writeAndFlush(Unpooled.copiedBuffer(p.getBytes())).addListener(ChannelFutureListener.CLOSE);
-        } else if (delimiter == 67) {
+        } else {
             out.add(buf);
             ctx.pipeline().remove(this);
         }

@@ -4,7 +4,6 @@ import com.google.inject.Injector;
 import com.netflix.governator.annotations.AutoBindSingleton;
 import com.netflix.governator.annotations.Configuration;
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
@@ -65,8 +64,8 @@ public class NetworkBootstrap {
                     .channel(NioServerSocketChannel.class)
                     .option(ChannelOption.SO_BACKLOG, 1000)
                     //.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 10000)
-                    .childOption(ChannelOption.WRITE_BUFFER_HIGH_WATER_MARK, 32 * 1024)
-                    .childOption(ChannelOption.WRITE_BUFFER_LOW_WATER_MARK, 8 * 1024)
+//                    .childOption(ChannelOption.WRITE_BUFFER_HIGH_WATER_MARK, 32 * 1024)
+//                    .childOption(ChannelOption.WRITE_BUFFER_LOW_WATER_MARK, 8 * 1024)
                     .childOption(ChannelOption.TCP_NODELAY, true)
                     .childOption((ChannelOption.SO_KEEPALIVE), true)
                     .childHandler(new ChannelInitializer<SocketChannel>() {

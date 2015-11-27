@@ -2,6 +2,7 @@ package org.azure;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import com.impossibl.postgres.jdbc.PGDataSource;
 import com.lexicalscope.jewel.cli.CliFactory;
 import com.mycila.guice.ext.closeable.CloseableModule;
 import com.mycila.guice.ext.jsr250.Jsr250Module;
@@ -69,6 +70,13 @@ public class Azure {
     private static HikariDataSource initializeDataSource(AzureArgs arguments) {
         logger.info("Initializing data source");
         HikariConfig hikariConfig = new HikariConfig();
+
+        PGDataSource pgDataSource = new PGDataSource();
+        pgDataSource.setHost(arguments.getDatabaseHost());
+        pgDataSource.setPort(arguments.getDatabasePort());
+        pgDataSource.setUser(arguments.getDatabaseUser());
+        pgDataSource.setPassword(arguments.getDatabasePassword());
+        pgDataSource.setDatabase(arguments.getDatabase());
 
         MysqlDataSource dataSource = new MysqlDataSource();
         dataSource.setServerName(arguments.getDatabaseHost());

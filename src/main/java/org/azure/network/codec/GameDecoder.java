@@ -18,9 +18,6 @@ public class GameDecoder extends MessageToMessageDecoder<ByteBuf> {
         // less than 5 bytes == garbage data
         if (buf.readableBytes() < 5) return;
 
-        // check if the buffer is a packet
-        if (buf.readByte() != 67) return;
-
         Session session = Azure.getSessionManager().getSessionByChannel(ctx.channel());
 
         buf.readInt(); // length
