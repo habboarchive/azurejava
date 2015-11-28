@@ -13,22 +13,10 @@ import org.azure.network.sessions.Session;
 public class EventLogMessageEvent {
     @MessageEvent(messageId = EClientMessage.EventLogMessageEvent)
     public static void eventHandler(Session session, ClientMessage message) {
-        // TODO: do something with this
-        String eventType = message.readString();
-        String eventSubtype = message.readString();
-        String eventDescriptor = message.readString();
-        String eventData = message.readString();
-
-        switch (eventType) {
-            case "NewNavigator":
-                // New Navigator event
-                switch (eventSubtype) {
-                    case "Search":
-                        // user searched for something.
-                        break;
-                }
-
-                break;
-        }
+//        TODO: do something with this, maybe.
+//        String eventType = message.readString();
+//        String eventSubtype = message.readString();
+//        String eventDescriptor = message.readString();
+//        String eventData = message.readString();
     }
 }
