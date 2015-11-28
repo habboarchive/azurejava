@@ -121,7 +121,7 @@ public class Azure {
 
         PolledConfigurationSource polledConfigurationSource = new JDBCConfigurationSource(
                 dataSource,
-                "Select * from server_properties",
+                "Select distinct property_key, property_value from server_properties",
                 "property_key",
                 "property_value"
         );

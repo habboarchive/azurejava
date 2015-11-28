@@ -13,7 +13,7 @@ public interface AzureArgs {
     @Option(description = "PostgreSQL server host", defaultValue = "localhost")
     String getDatabaseHost();
 
-    @Option(description = "PostgreSQL server port", defaultValue = "3306")
+    @Option(description = "PostgreSQL server port", defaultValue = "5432")
     int getDatabasePort();
 
     @Option(description = "PostgreSQL server user", defaultValue = "azure")
