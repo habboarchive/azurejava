@@ -294,7 +294,8 @@ public class EClientMessage {
     public static final short DeleteGroupMessageEvent = 434;
     public static final short GameCenterLoadGameMessageEvent = 67;
     public static final short GameCenterJoinQueueMessageEvent = 2482;
-    public static final short ClickGamesMessageEvent = 3747;
+    // public static final short ClickGamesMessageEvent = 3747; // EventLogMessageEvent
+    public static final short EventLogMessageEvent = 3747;
     public static final short AcceptPollMessageEvent = 3986;
     public static final short RefusePollMessageEvent = 1539;
     public static final short AnswerPollQuestionMessageEvent = 2403;

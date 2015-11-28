@@ -6,7 +6,6 @@ import com.impossibl.postgres.jdbc.PGDataSource;
 import com.lexicalscope.jewel.cli.CliFactory;
 import com.mycila.guice.ext.closeable.CloseableModule;
 import com.mycila.guice.ext.jsr250.Jsr250Module;
-import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import com.netflix.config.*;
 import com.netflix.config.sources.JDBCConfigurationSource;
 import com.netflix.governator.annotations.AutoBindSingleton;
@@ -78,14 +77,7 @@ public class Azure {
         pgDataSource.setPassword(arguments.getDatabasePassword());
         pgDataSource.setDatabase(arguments.getDatabase());
 
-        MysqlDataSource dataSource = new MysqlDataSource();
-        dataSource.setServerName(arguments.getDatabaseHost());
-        dataSource.setPort(arguments.getDatabasePort());
-        dataSource.setUser(arguments.getDatabaseUser());
-        dataSource.setPassword(arguments.getDatabasePassword());
-        dataSource.setDatabaseName(arguments.getDatabase());
-
-        hikariConfig.setDataSource(dataSource);
+        hikariConfig.setDataSource(pgDataSource);
         hikariConfig.setUsername(arguments.getDatabaseUser());
         hikariConfig.setPassword(arguments.getDatabasePassword());
 
@@ -97,8 +89,7 @@ public class Azure {
             org.hibernate.cfg.Configuration configuration = new org.hibernate.cfg.Configuration();
             configuration.configure();
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
-            SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-            return sessionFactory;
+            return configuration.buildSessionFactory(serviceRegistry);
         }
         catch (HibernateException ex) {
             throw new ExceptionInInitializerError(ex);

@@ -10,18 +10,18 @@ public interface AzureArgs {
     @Option(description = "system configuration bootstrap file", defaultValue = "azure.properties")
     String getConfigurationBootstrap();
 
-    @Option(description = "MySQL server host", defaultValue = "localhost")
+    @Option(description = "PostgreSQL server host", defaultValue = "localhost")
     String getDatabaseHost();
 
-    @Option(description = "MySQL server port", defaultValue = "3306")
+    @Option(description = "PostgreSQL server port", defaultValue = "3306")
     int getDatabasePort();
 
-    @Option(description = "MySQL server user", defaultValue = "root")
+    @Option(description = "PostgreSQL server user", defaultValue = "azure")
     String getDatabaseUser();
 
-    @Option(description = "MySQL server password", defaultValue = "\\")
+    @Option(description = "PostgreSQL server password", defaultValue = "passw0rd")
     String getDatabasePassword();
 
-    @Option(description = "MySQL server database name", defaultValue = "azurejava")
+    @Option(description = "PostgreSQL server database name", defaultValue = "azure")
     String getDatabase();
 }
